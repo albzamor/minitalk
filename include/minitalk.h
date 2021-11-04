@@ -6,7 +6,7 @@
 /*   By: albzamor <albzamor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:51:38 by albzamor          #+#    #+#             */
-/*   Updated: 2021/11/04 14:54:04 by albzamor         ###   ########.fr       */
+/*   Updated: 2021/11/04 15:43:28 by albzamor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINITALK_H
 
 # include <stdio.h>
+# include <unistd.h>
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdlib.h>

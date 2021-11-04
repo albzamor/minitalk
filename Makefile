@@ -1,9 +1,6 @@
 NAME_CLIENT = client
 NAME_SERVER = server
 LIBFT_NAME = libft.a
-SRCS =  ./srcs/server.c \
-		./srcs/client.c \
-		./srcs/utils.c \
 
 LIBFT_DIR = ./libft/
 
@@ -15,21 +12,19 @@ else
 CC = cc
 endif
 
-OBJS = ${SRCS:.c=.o}
 CFLAGS = -Wall -Werror -Wextra
 RM = rm -f
+all: $(NAME_CLIENT)	$(NAME_SERVER)
+
 %.o: %.c
 	$(CC)  $(CFLAGS) -c $< -o $@
 
-$(NAME_CLIENT): $(OBJS)
+$(NAME_CLIENT): ./srcs/client.o
 	$(MAKE) bonus -C $(LIBFT_DIR)
-	$(CC) $(LIBFT_DIR)$(LIBFT_NAME) $(NAME_CLIENT) $(NAME_SERVER) $^
+	$(CC) $(LIBFT_DIR)$(LIBFT_NAME) -o $(NAME_CLIENT) $^
 
-$(NAME_SERVER): $(OBJS)
-	$(MAKE) bonus -C $(LIBFT_DIR)
-	$(CC) $(LIBFT_DIR)$(LIBFT_NAME) $(NAME_CLIENT) $(NAME_SERVER) $^
-
-all: $(NAME_CLIENT) $(NAME_SERVER)
+$(NAME_SERVER): ./srcs/server.o
+	$(CC) $(LIBFT_DIR)$(LIBFT_NAME) -o $(NAME_SERVER) $^
 
 clean:
 	make -C $(LIBFT_DIR) clean
@@ -37,7 +32,7 @@ clean:
 
 fclean: clean
 	make -C $(LIBFT_DIR) fclean
-	$(RM) $(NAME_CLIENT) $(NAME_SERVER
+	$(RM) $(NAME_CLIENT) $(NAME_SERVER)
 
 re: clean all
 

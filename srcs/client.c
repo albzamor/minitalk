@@ -6,10 +6,15 @@
 /*   By: albzamor <albzamor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:50:39 by albzamor          #+#    #+#             */
-/*   Updated: 2021/11/04 15:15:38 by albzamor         ###   ########.fr       */
+/*   Updated: 2021/11/04 17:01:50 by albzamor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main(int argc, char **argv)
+#include "../include/minitalk.h"
+
+int	main()
 {
+
+	printf("client");
+
 }
