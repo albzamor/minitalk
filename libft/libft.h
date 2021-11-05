@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albzamor <albzamor@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/04 17:46:51 by albzamor          #+#    #+#             */
+/*   Updated: 2021/11/04 18:28:39 by albzamor         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LIBFT_H
 # define LIBFT_H
 
@@ -59,5 +71,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new);
 size_t	ft_wordcount(char const *s, char c);
 size_t	ft_desplace(char const *s, char c);
 size_t	ft_lens(char *lens, char c);
+void	ft_putstr_fdnl(char *s, int fd);
+void	ft_putnbr_fdnl(int n, int fd);
 
 #endif
