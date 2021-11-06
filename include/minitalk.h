@@ -6,7 +6,7 @@
 /*   By: albzamor <albzamor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:51:38 by albzamor          #+#    #+#             */
-/*   Updated: 2021/11/05 18:06:01 by albzamor         ###   ########.fr       */
+/*   Updated: 2021/11/06 13:28:26 by albzamor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <signal.h>
 # include "../libft/libft.h"
 
-static void ft_kill(int pid, char *message);
+//static void ft_kill(int pid, char *message);
 void		ft_sigusr_handler(int sig);
 
 

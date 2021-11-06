@@ -6,7 +6,7 @@
 /*   By: albzamor <albzamor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:50:45 by albzamor          #+#    #+#             */
-/*   Updated: 2021/11/05 18:57:03 by albzamor         ###   ########.fr       */
+/*   Updated: 2021/11/06 14:51:22 by albzamor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_sigusr_handler(int sig)
 	static unsigned char	character;
 
 	character |= (sig == SIGUSR2);
-	character = character | (sig == SIGUSR2);
+	//character = character | (sig == SIGUSR2);
 
 	if (++i == 8)
 	{

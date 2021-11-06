@@ -6,7 +6,7 @@
 /*   By: albzamor <albzamor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:50:39 by albzamor          #+#    #+#             */
-/*   Updated: 2021/11/05 18:45:09 by albzamor         ###   ########.fr       */
+/*   Updated: 2021/11/06 13:49:34 by albzamor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ static void ft_kill(int pid, char *message)
 	i = 0;
 	while (message[i] != '\0')
 	{
-		bit = 0;
+		bit = 7;
 		character = message[i];
-		while (bit < 8)
+		while (bit >= 0)
 		{
-			if (character >> i & 1)
+			if (character >> bit & 1)
 				kill(pid, SIGUSR2);
 			else
 				kill(pid, SIGUSR1);
 			usleep(100);
-			bit++;
+			bit--;
 		}
 		i++;
 	}
