@@ -6,35 +6,35 @@
 /*   By: albzamor <albzamor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:50:39 by albzamor          #+#    #+#             */
-/*   Updated: 2021/11/11 18:03:03 by albzamor         ###   ########.fr       */
+/*   Updated: 2021/11/11 20:29:03 by albzamor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minitalk.h"
 
-void	ft_sigaction(int sig, siginfo_t *siginfo, void *context)
+void	ft_sigaction(int sig)
 {
 /* 	(void) sig;
-	static int		i;
+
 	i += 1;
 	ft_putstr_fd("señal recibida", 1); */
-	(void) context;
-	(void) siginfo;
-	static int	received;
 
-	if (sig == SIGALRM)
-		++received;
-	else
+	static int		i;
+	i += 1;
+
+	if (sig == SIGUSR1)
 	{
-		ft_putnbr_fd(received, 1);
-		ft_putchar_fd('\n', 1);
-		exit(0);
+		ft_putstr_fd("*", 1);
+		usleep(100);
 	}
-	exit(0);
+	if (sig == SIGUSR2)
+	{
+		ft_putnbr_fd(i*8, 1);
+	}
 
 }
 
-static void ft_kill(int pid, char *message)
+static void ft_kill(int pid, char *message, struct sigaction signal_struct)
 {
 	int		i;
 	char	character;
@@ -47,10 +47,18 @@ static void ft_kill(int pid, char *message)
 		character = message[i];
 		while (bit >= 0)
 		{
+			usleep(100);
 			if (character >> bit & 1)
+			{
 				kill(pid, SIGUSR2);
+				sigaction(SIGUSR1, &signal_struct, 0);
+			}
 			else
+			{
 				kill(pid, SIGUSR1);
+				sigaction(SIGUSR1, &signal_struct, 0);
+			}
+			sigaction(SIGUSR2, &signal_struct, 0);//imprima n bits
 			usleep(100);
 			bit--;
 		}
@@ -80,32 +88,24 @@ int	main(int argc,	char **argv)
 	pid_t	pid_server;
 
 	pid_server = ft_atoi(argv[1]);
-	signal_struct.sa_flags = SA_SIGINFO;
-	signal_struct.__sigaction_u.__sa_sigaction = &ft_sigaction;
+
 
 
 	ft_putstr_fdnl("Process ID(PID_client): ", 1);
 	ft_putnbr_fdnl(getpid(), 1);
+	ft_putstr_fd("\nBites recibidos: ", 1);
+	signal_struct.__sigaction_u.__sa_handler = &ft_sigaction;
 
 	if (argc == 3)
 	{
 		pid_server = ft_atoi(argv[1]);
-		ft_kill(pid_server, argv[2]);
+		ft_kill(pid_server, argv[2], signal_struct);
 
 	}
 	else
 	{
 		ft_putstr_fd("Arguments Error", 1);
 		return (-1);
-	}
-	ft_putstr_fd("Bites recibidos: ", 1);
-	while (1)
-	{
-		sigaction(SIGUSR1, &signal_struct, 0);
-		//printf(" ... esperando algo\n");
-		//sleep(2);
-		//printf("      ...  algo ...\n");
-		//sleep(1);
 	}
 
 	return (0);
