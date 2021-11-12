@@ -6,10 +6,13 @@
 /*   By: albzamor <albzamor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:50:39 by albzamor          #+#    #+#             */
-/*   Updated: 2021/11/12 11:02:52 by albzamor         ###   ########.fr       */
+/*   Updated: 2021/11/12 12:15:01 by albzamor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+ Action to confirm bits in server
+*/
 #include "../include/minitalk.h"
 
 void	ft_sigaction(int sig)
@@ -21,18 +24,22 @@ void	ft_sigaction(int sig)
 	}
 }
 
-static void ft_kill(int pid, char *message, struct sigaction signal_struct)
+/**
+ * @param bit to loop through each bit of a character
+ * @param 2 all message to send
+*/
+static void	ft_kill(int pid, char *message, struct sigaction signal_struct)
 {
 	int		i;
 	char	character;
 	int		bit;
 
-	i = 0;
-	while (message[i] != '\0')
+	i = -1;
+	while (message[++i] != '\0')
 	{
-		bit = 7;
+		bit = 8;
 		character = message[i];
-		while (bit >= 0)
+		while (bit-- > 0)
 		{
 			usleep(100);
 			if (character >> bit & 1)
@@ -46,28 +53,26 @@ static void ft_kill(int pid, char *message, struct sigaction signal_struct)
 				sigaction(SIGUSR1, &signal_struct, 0);
 			}
 			usleep(100);
-			bit--;
 		}
-		i++;
 	}
-	bit = 0;
 }
+
 /**
- * @param 1 PID ->server
- * @param 2 message " "
- * @param i;
+
+ * @param signal_struct to change handler since signal to sigaction
+ * @param pid_server 1 arg in terminal
  *
 */
 int	main(int argc,	char **argv)
 {
-	struct sigaction signal_struct;
-	pid_t	pid_server;
+	struct sigaction	signal_struct;
+	pid_t				pid_server;
+
 	pid_server = ft_atoi(argv[1]);
 	ft_putstr_fdnl("Process ID(PID_client): ", 1);
 	ft_putnbr_fdnl(getpid(), 1);
 	ft_putstr_fd("\nBits Received (\"*\" per bit):\n", 1);
-	signal_struct.__sigaction_u.__sa_handler = &ft_sigaction;
-
+	signal_struct.__sigaction_u.__sa_handler = ft_sigaction;
 	if (argc == 3 && ft_strlen(argv[2]))
 	{
 		pid_server = ft_atoi(argv[1]);
@@ -80,4 +85,3 @@ int	main(int argc,	char **argv)
 	}
 	return (0);
 }
-
